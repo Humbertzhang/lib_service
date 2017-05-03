@@ -1,4 +1,4 @@
-# classroom_service
+# lib_service
 
 ## ENV FILE (container.env)
 

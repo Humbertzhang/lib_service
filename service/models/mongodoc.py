@@ -2,23 +2,20 @@
 from mongokit import Document
 
 
-class Week(Document):
+class Attention(Document):
     """
-    :class: Week
-
-    每周空闲教室存储
+    :class: Attention
+    用户图书关注存储
     """
-    __collection__ = 'weeks'
-    __database__ = 'weekdb'
+    __collection__ = 'attentions'
+    __database__ = 'attendb'
     structure = {
-            'bno': unicode,
-            'weekNo': unicode,
-            'mon': dict,
-            'tue': dict,
-            'wed': dict,
-            'thu': dict,
-            'fri': dict
+        'bid': basestring,
+        'book': basestring,
+        'id': basestring,
+        'author': basestring,
+        'sid': basestring
     }
 
     def __repr__(self):
-        return '<Mongo Week bno:{} weekNo:{}>'.format(self['bno'], self['weekNo'])
+        return '<Mongo Attention>'
