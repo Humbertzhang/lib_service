@@ -12,6 +12,21 @@ api = Blueprint(
         )
 
 
+@api.route('/lib/login/')
+@require_lib_login
+def api_lib_login(s, sid):
+    """
+    :function: api_lib_login
+    :args:
+        - s: 爬虫session对象
+        - sid: 学号
+    :rv: json message
+
+    模拟登录图书馆API
+    """
+    return jsonify({}), 200
+
+
 @api.route('/lib/search/')
 @tojson
 def api_search_books():
