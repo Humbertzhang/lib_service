@@ -3,6 +3,6 @@ lib_api:
     env_file:
         - container.env
     command:
-        gunicorn --name restccnu -b 0.0.0.0:8080 -w 2 wsgi:app
+        gunicorn --name lib_api -b 0.0.0.0:8080 -w 2 wsgi:app
     ports:
         - "7070:8080"
