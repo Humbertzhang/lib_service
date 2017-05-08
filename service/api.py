@@ -28,7 +28,6 @@ def api_lib_login(s, sid):
 
 
 @api.route('/lib/search/')
-@tojson
 def api_search_books():
     """
     :function: api_search_books
@@ -42,10 +41,10 @@ def api_search_books():
     if keyword:
         book_info_list = search_books(keyword)
         pg_book_info_list = _Pagination(book_info_list, page, per_page)
-        return {'meta': {
+        return jsonify({'meta': {
                 'max': pg_book_info_list.max_page,
                 'per_page': per_page },
-            'results': book_info_list[(page-1)*per_page:page*per_page]}
+            'results': book_info_list[(page-1)*per_page:page*per_page]}), 200
 
 
 @api.route('/lib/')
@@ -56,13 +55,12 @@ def api_book_detail():
     :rv: 图书详细信息
     图书详情
     """
-    id = request.args.get('id')
-    return jsonify(get_book(id))
+    bid = request.args.get('id')
+    return jsonify(get_book(bid)), 200
 
 
 @api.route('/lib/me/')
 @require_lib_login
-@tojson
 def api_book_me(s, sid):
     """
     :function: api_book_me
@@ -70,7 +68,7 @@ def api_book_me(s, sid):
         - s: 爬虫session对象
         - sid: 学号
     """
-    return book_me(s)
+    return jsonify(book_me(s)), 200
 
 
 @api.route('/lib/renew/', methods=['POST'])

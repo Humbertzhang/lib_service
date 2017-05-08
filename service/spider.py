@@ -7,6 +7,7 @@ import requests
 import datetime
 from flask import request
 from bs4 import BeautifulSoup
+from errors import ForbiddenError, NotfoundError
 
 
 lib_login_url = "http://202.114.34.15/reader/redr_verify.php"
