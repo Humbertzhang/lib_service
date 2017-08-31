@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
+import logging
 from flask import Flask
 
-def create_app(config_name='default'):
-    app = Flask(__name__)
-    from api import api
-    app.register_blueprint(api, url_prefix='/api')
+app = Flask(__name__)
 
-    return app
+# Gunicorn Error Logger
+gel = logging.getLogger('gunicorn.error')
+app.logger.handlers.extend(gel.handlers)
+app.logger.setLevel(logging.DEBUG)
 
-app = create_app()
+from api import api
+app.register_blueprint(api, url_prefix='/api')

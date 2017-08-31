@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
+from . import app
 from flask import Blueprint, jsonify, request
 from paginate import _Pagination
 from spider import search_books, get_book, book_me, renew_book
@@ -24,6 +25,7 @@ def api_lib_login(s, sid):
 
     模拟登录图书馆API
     """
+    app.logger.debug('User {sid} logged in'.format(sid=sid))
     return jsonify({}), 200
 
 
@@ -38,6 +40,7 @@ def api_search_books():
     per_page = 20
     keyword = request.args.get('keyword')
     page = int(request.args.get('page') or '1')
+    app.logger.debug('User searched {kw}'.format(kw=keyword))
     if keyword:
         book_info_list = search_books(keyword)
         pg_book_info_list = _Pagination(book_info_list, page, per_page)
@@ -56,6 +59,7 @@ def api_book_detail():
     图书详情
     """
     bid = request.args.get('id')
+    app.logger.debug('Ask for book {bid} detail'.format(bid=bid))
     return jsonify(get_book(bid)), 200
 
 
@@ -68,6 +72,7 @@ def api_book_me(s, sid):
         - s: 爬虫session对象
         - sid: 学号
     """
+    app.logger.debug("User {sid} get book me".format(sid=sid))
     return jsonify(book_me(s)), 200
 
 
